@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title(project)} · ${upper(environment)}</title>
+  <style>
+    :root {
+      --bg: #f4f5f7; --surface: #ffffff; --text: #17202b; --muted: #5d6877;
+      --line: #dde1e7; --accent: #5b47d6; --ok: #177a48; --code: #f0f1f5;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0e1218; --surface: #161c25; --text: #e7ebf0; --muted: #94a0b1;
+        --line: #26303d; --accent: #a898ff; --ok: #56cf8e; --code: #1e2632;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 48px 16px; background: var(--bg); color: var(--text);
+      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 720px; margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 12px; color: var(--accent); font-size: 13px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    h1 { margin: 0 0 12px; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; letter-spacing: -.02em; }
+    .lead { margin: 0 0 32px; color: var(--muted); font-size: 18px; }
+    section {
+      margin-bottom: 20px; padding: 24px; background: var(--surface);
+      border: 1px solid var(--line); border-radius: 12px;
+    }
+    h2 { margin: 0 0 16px; font-size: 14px; font-weight: 600; color: var(--muted); }
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 10px 24px; margin: 0; }
+    dt { color: var(--muted); }
+    dd { margin: 0; overflow-wrap: anywhere; }
+    code, pre { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 14px; }
+    code { padding: 2px 6px; background: var(--code); border-radius: 4px; overflow-wrap: anywhere; }
+    ol { margin: 0; padding: 0; list-style: none; counter-reset: paso; }
+    li {
+      display: grid; grid-template-columns: 1.5em minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline;
+      padding: 10px 0; border-top: 1px solid var(--line); counter-increment: paso;
+    }
+    li:first-child { padding-top: 0; border-top: 0; }
+    li:last-child { padding-bottom: 0; }
+    li::before { content: counter(paso); color: var(--muted); font-variant-numeric: tabular-nums; }
+    li code { justify-self: start; }
+    li span { color: var(--muted); overflow-wrap: anywhere; }
+    pre { margin: 0; white-space: pre-wrap; color: var(--ok); }
+    footer { margin-top: 32px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 560px) {
+      body { padding-top: 32px; }
+      dl { grid-template-columns: 1fr; gap: 2px; }
+      dd { margin-bottom: 12px; }
+      dd:last-child { margin-bottom: 0; }
+      li { grid-template-columns: 1.5em minmax(0, 1fr); }
+      li span { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">${organization} · ${project} · ${environment}</p>
+    <h1>Sitio estático desplegado con Terraform</h1>
+    <p class="lead">Esta página vive en Azure Storage y se publicó como infraestructura como código: ningún recurso se creó a mano en el portal.</p>
+
+    <section>
+      <h2>Datos del despliegue</h2>
+      <dl>
+        <dt>Ambiente</dt><dd>${upper(environment)}</dd>
+        <dt>Región</dt><dd>${location}</dd>
+        <dt>Grupo de recursos</dt><dd><code>${resource_group}</code></dd>
+        <dt>Cuenta de almacenamiento</dt><dd><code>${storage_account}</code></dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Los 5 recursos de la práctica</h2>
+      <ol>
+%{ for recurso in [
+  { tipo = "azurerm_resource_group", nombre = resource_group },
+  { tipo = "azurerm_storage_account", nombre = storage_account },
+  { tipo = "azurerm_storage_account_static_website", nombre = "$web" },
+  { tipo = "azurerm_storage_blob", nombre = index_document },
+  { tipo = "azurerm_storage_blob", nombre = error_document },
+] ~}
+        <li><code>${recurso.tipo}</code><span>${recurso.nombre}</span></li>
+%{ endfor ~}
+      </ol>
+    </section>
+
+    <section>
+      <pre>Apply complete! Resources: 5 added, 0 changed, 0 destroyed.</pre>
+    </section>
+
+    <footer>Universidad Tecnológica del Valle de Toluca · Práctica de Terraform en Azure</footer>
+  </main>
+</body>
+</html>

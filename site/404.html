@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página no encontrada</title>
+  <style>
+    :root { --bg: #f4f5f7; --text: #17202b; --muted: #5d6877; --accent: #5b47d6; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0e1218; --text: #e7ebf0; --muted: #94a0b1; --accent: #a898ff; }
+    }
+    body {
+      display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 16px;
+      background: var(--bg); color: var(--text); text-align: center;
+      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .code { margin: 0; color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .08em; }
+    h1 { margin: 8px 0; font-size: clamp(28px, 6vw, 40px); line-height: 1.15; letter-spacing: -.02em; }
+    p { margin: 0 0 24px; color: var(--muted); }
+    a { color: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="code">ERROR 404</p>
+    <h1>Esta página no existe</h1>
+    <p>La ruta que buscas no está publicada en este sitio.</p>
+    <a href="/">Volver al inicio</a>
+  </main>
+</body>
+</html>
