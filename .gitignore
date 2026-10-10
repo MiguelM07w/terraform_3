@@ -1,0 +1,30 @@
+# Directorio local de proveedores y módulos (se regenera con terraform init)
+.terraform/
+
+# Archivos de estado: contienen IDs y datos sensibles de la infraestructura
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
+
+# Planes guardados con "terraform plan -out"
+*.tfplan
+
+# Registros de fallos de Terraform
+crash.log
+crash.*.log
+
+# Variables con valores reales (ID de suscripción, nombres únicos)
+*.tfvars
+*.tfvars.json
+
+# Overrides locales
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Editor y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
