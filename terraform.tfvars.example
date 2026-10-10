@@ -1,0 +1,19 @@
+# Copia este archivo como terraform.tfvars y coloca tus valores reales.
+# terraform.tfvars NO se sube al repositorio (está en .gitignore).
+subscription_id = "00000000-0000-0000-0000-000000000000"
+
+environment = "qa"
+
+# Región de despliegue. Azure for Students solo permite algunas regiones;
+# consulta las tuyas con: az policy assignment list
+location = "mexicocentral"
+
+# Debe hacer ÚNICO en todo Azure el nombre de la cuenta de almacenamiento:
+# usa tu nombre o matrícula (3 a 8 letras minúsculas o números).
+unique_suffix = "angel"
+
+tags = {
+  managed_by  = "terraform"
+  owner       = "it"
+  cost_center = "integradora"
+}
